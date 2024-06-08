@@ -1,7 +1,11 @@
 from openai import AzureOpenAI
 from string import Template
 from whisper import transcribe, create_vtt
+from elevenlabs.client import ElevenLabs
+from elevenlabs import play, save, stream, Voice, VoiceSettings
+from moviepy.editor import VideoFileClip, AudioFileClip, CompositeAudioClip, vfx
 
+import os
 import json
 
 p = Template("""\
@@ -23,6 +27,10 @@ client = AzureOpenAI(
 
 )
 
+ElevenLabsclient = ElevenLabs(
+  api_key=os.environ['ELEVEN_LABS_API_KEY'],
+)
+
 def respond(q, model="gpt-4-0125", n=1):
     response = client.chat.completions.create(
         model=model, n=n,
@@ -34,6 +42,31 @@ def respond(q, model="gpt-4-0125", n=1):
 
     input_tokens, output_tokens = response.usage.prompt_tokens, response.usage.completion_tokens
     return [response.choices[x].message.content for x in range(n)], input_tokens, output_tokens
+
+def text_to_speech(texts):
+    audio = ElevenLabsclient.generate(
+        text=" ".join(texts),
+        voice="Rachel",
+        model="eleven_multilingual_v2"
+    )
+
+    save(audio, "audio/translated_speech.mp3")
+
+
+def exchange_audio(input_file, input_audio):
+    video = VideoFileClip(input_file)
+    audio = AudioFileClip(input_audio)
+
+    video_duration = video.duration
+
+    speed_factor = audio.duration / video_duration
+    adjusted_audio = audio.fx(vfx.speedx, factor=1/speed_factor)
+
+    # if audio.duration > video.duration:
+    #     audio = audio.subclip(0, video.duration)
+
+    video = video.set_audio(adjusted_audio)
+    video.write_videofile(input_file)
 
 def translate(input_video,flagVal, language):
     lang, segments = transcribe(input_video)
@@ -51,5 +84,9 @@ def translate(input_video,flagVal, language):
         i += 1
 
     print(new_translated_text)
+  
+    text_to_speech(translated_text)
+    exchange_audio(f'videos/{input_video}', "audio/translated_speech.mp3")
+  
     create_vtt(input_video, segments, language, translate=True, translated_text = new_translated_text)
     return lang
