@@ -63,7 +63,7 @@ def main():
 
             input_lang = translate(uploaded_video.name,profanity_filter, selected_language)
 
-            st.video(file_path, format="video/mp4", start_time=0, subtitles={input_lang: f"output1.vtt", selected_language: f"output2.vtt"})
+            st.video("videos/output.mp4", format="video/mp4", start_time=0, subtitles={selected_language: f"output2.vtt", input_lang: f"output1.vtt" })
         
 
 if __name__ == "__main__":
