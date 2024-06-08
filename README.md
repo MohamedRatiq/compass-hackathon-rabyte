@@ -1,5 +1,9 @@
 # Application Setup and Run Instructions
 
+```bash
+https://rabyte.streamlit.app/
+```
+
 ## Setup Environment
 
 Before running the application, ensure that you install all the necessary dependencies:
