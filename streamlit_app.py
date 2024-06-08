@@ -52,19 +52,19 @@ def main():
         st.write("Profanity filter is disabled.")
 
     # Video upload section
-    uploaded_video = st.file_uploader("Choose a video...", type=["mp4", "avi", "mov", "mkv"])
+    uploaded_video = st.file_uploader("Choose a video...", type=["mp4"])
     if uploaded_video is not None:
-        save_dir = 'videos'
-        file_path = os.path.join(save_dir, uploaded_video.name)
-        with open(file_path, "wb") as f:
-            f.write(uploaded_video.getbuffer())
-        st.success(f"Saved video as {file_path}")
+        with st.spinner('Processing video...'):
+            save_dir = 'videos'
+            file_path = os.path.join(save_dir, uploaded_video.name)
+            with open(file_path, "wb") as f:
+                f.write(uploaded_video.getbuffer())
 
 
-        input_lang = translate(uploaded_video.name,profanity_filter, selected_language)
+            input_lang = translate(uploaded_video.name,profanity_filter, selected_language)
 
-        st.video(file_path, format="video/mp4", start_time=0, subtitles={input_lang: f"output1.vtt", selected_language: f"output2.vtt"})
-    
+            st.video(file_path, format="video/mp4", start_time=0, subtitles={input_lang: f"output1.vtt", selected_language: f"output2.vtt"})
+        
 
 if __name__ == "__main__":
     main()

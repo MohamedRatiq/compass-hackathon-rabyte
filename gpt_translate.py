@@ -4,9 +4,11 @@ from whisper import transcribe, create_vtt
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play, save, stream, Voice, VoiceSettings
 from moviepy.editor import VideoFileClip, AudioFileClip, CompositeAudioClip, vfx
-
+from dotenv import load_dotenv
 import os
 import json
+
+load_dotenv
 
 p = Template("""\
 RESPOND IN JSON!!!!!!!
@@ -24,7 +26,9 @@ Translate to: $language \
 """)
 
 client = AzureOpenAI(
-
+    api_key=os.getenv('api_key'),
+    api_version=os.getenv('api_version'),
+    azure_endpoint=os.getenv('azure_endpoint')
 )
 
 ElevenLabsclient = ElevenLabs(
@@ -45,7 +49,7 @@ def respond(q, model="gpt-4-0125", n=1):
 
 def text_to_speech(texts):
     audio = ElevenLabsclient.generate(
-        text=" ".join(texts),
+        text=" ".join(texts.values()),
         voice="Rachel",
         model="eleven_multilingual_v2"
     )
@@ -85,7 +89,7 @@ def translate(input_video,flagVal, language):
 
     print(new_translated_text)
   
-    text_to_speech(translated_text)
+    text_to_speech(new_translated_text)
     exchange_audio(f'videos/{input_video}', "audio/translated_speech.mp3")
   
     create_vtt(input_video, segments, language, translate=True, translated_text = new_translated_text)
