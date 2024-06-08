@@ -58,6 +58,12 @@ def text_to_speech(texts):
     save(audio, "audio/translated_speech.mp3")
 
 
+def speed_change(sound, speed=1.0):
+    sound_with_altered_frame_rate = sound._spawn(sound.raw_data, overrides={
+        "frame_rate": int(sound.frame_rate * speed)
+    })
+    return sound_with_altered_frame_rate.set_frame_rate(sound.frame_rate)
+
 def exchange_audio(input_file, input_audio):
     video = VideoFileClip(input_file)
     audio = AudioFileClip(input_audio)
@@ -65,7 +71,9 @@ def exchange_audio(input_file, input_audio):
     video_duration = video.duration
     
     slow_mp3_obj = AudioSegment.from_file(input_audio)
-    speed_update = slow_mp3_obj.speedup(audio.duration/video_duration)
+    print(video.duration, audio.duration)
+    print(audio.duration / video.duration)
+    speed_update = speed_change(slow_mp3_obj, audio.duration / video.duration)
     speed_update.export(input_audio, format="mp3")
 
     audio = AudioFileClip(input_audio)
