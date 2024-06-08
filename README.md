@@ -1,8 +1,8 @@
-# Application Setup and Run Instructions
+# Link to Deployment
 
-```bash
 https://rabyte.streamlit.app/
-```
+
+# Application Setup and Run Instructions
 
 ## Setup Environment
 
@@ -35,6 +35,7 @@ Once the server is running, you can access the API at:
 ```
 http://localhost:5000/rabyte-translation
 ```
+Note: Azure Open AI API key as well as Eleven Labs API key are needed to run this code locally.
 
 ### Using the API
 To use the API, you need to send a POST request to http://localhost:5000/ravigate-translation with an MP4 file as input. You must include two parameters:
