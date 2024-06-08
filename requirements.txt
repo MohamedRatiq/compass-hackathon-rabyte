@@ -1,0 +1,7 @@
+ffmpeg-python
+python-dotenv
+openai
+faster_whisper
+moviepy
+elevenlabs
+streamlit
