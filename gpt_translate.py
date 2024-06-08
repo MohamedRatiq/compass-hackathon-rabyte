@@ -103,6 +103,8 @@ def translate(input_video,flagVal, language):
   
     text_to_speech(new_translated_text)
     exchange_audio(f'videos/{input_video}', "audio/translated_speech.mp3")
+
+    os.system(f'ffmpeg -i videos/{input_video} -s 320x240 -b:v 16k -b:a 8k videos/{input_video}')
   
     create_vtt(input_video, segments, language, translate=True, translated_text = new_translated_text)
     return lang
