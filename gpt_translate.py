@@ -62,14 +62,17 @@ def exchange_audio(input_file, input_audio):
     audio = AudioFileClip(input_audio)
 
     video_duration = video.duration
+    
+    slow_mp3_obj = AudioSegment.from_file(input_audio)
+    speed_update = slow_mp3_obj.speedup(audio_duration/video_duration)
+    speed_update.export(input_audio, format="mp3")
 
-    speed_factor = audio.duration / video_duration
-    adjusted_audio = audio.fx(vfx.speedx, factor=1/speed_factor)
+    audio = AudioFileClip(input_audio)
+    if audio.duration > video.duration:
+        audio = audio.subclip(0, video.duration)
+    print(video.duration, audio.duration)
 
-    # if audio.duration > video.duration:
-    #     audio = audio.subclip(0, video.duration)
-
-    video = video.set_audio(adjusted_audio)
+    video = video.set_audio(audio)
     video.write_videofile(input_file)
 
 def translate(input_video,flagVal, language):
