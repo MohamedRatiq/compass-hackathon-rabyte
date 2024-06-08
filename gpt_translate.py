@@ -2,6 +2,7 @@ from openai import AzureOpenAI
 from string import Template
 from whisper import transcribe, create_vtt
 from elevenlabs.client import ElevenLabs
+from pydub import AudioSegment
 from elevenlabs import play, save, stream, Voice, VoiceSettings
 from moviepy.editor import VideoFileClip, AudioFileClip, CompositeAudioClip, vfx
 from dotenv import load_dotenv
