@@ -32,12 +32,13 @@ Once the server is running, you can access the API at:
 http://localhost:5000/rabyte-translation
 ```
 
-
-# DEMO
-
 ### Using the API
 To use the API, you need to send a POST request to http://localhost:5000/ravigate-translation with an MP4 file as input. You must include two parameters:
 
 - **remove_profanity**: Set this to 'Yes' to remove profanity from the translations, or 'No' to leave the content as is.
 - **language**: Specify one of the 29 languages you want the output to be translated into.
 
+
+# DEMO
+
+https://github.com/bhavikakaliya/compass-hackathon-rabyte/raw/main/rabyte.mp4
