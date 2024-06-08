@@ -65,7 +65,7 @@ def exchange_audio(input_file, input_audio):
     video_duration = video.duration
     
     slow_mp3_obj = AudioSegment.from_file(input_audio)
-    speed_update = slow_mp3_obj.speedup(audio_duration/video_duration)
+    speed_update = slow_mp3_obj.speedup(audio.duration/video_duration)
     speed_update.export(input_audio, format="mp3")
 
     audio = AudioFileClip(input_audio)
