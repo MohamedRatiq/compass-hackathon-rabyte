@@ -40,6 +40,6 @@ To use the API, you need to send a POST request to http://localhost:5000/ravigat
 
 
 # DEMO
-<video src="[https://github.com/rayytsn9/ROBOTT/assets/79029536/62f541aa-aa8c-43f5-9ead-4b7a2e0d7c2a](https://github.com/bhavikakaliya/compass-hackathon-rabyte/raw/main/rabyte.mp4)" width="300" />
+[https://github.com/rayytsn9/ROBOTT/assets/79029536/62f541aa-aa8c-43f5-9ead-4b7a2e0d7c2a](https://github.com/bhavikakaliya/compass-hackathon-rabyte/raw/main/rabyte.mp4)
 
 
