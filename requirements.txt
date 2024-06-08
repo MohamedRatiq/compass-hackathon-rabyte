@@ -6,3 +6,4 @@ moviepy
 elevenlabs
 streamlit
 pydub
+flask
