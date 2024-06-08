@@ -41,3 +41,6 @@ def rabyte():
         return "Invalid file format", 400
     except Exception as e:
         return "Error occurred", 500
+
+if __name__ == '__main__':  
+   app.run()
